@@ -1,6 +1,5 @@
 export function rpn(inputString: string): number {
   const tokens: string[] = inputString.split(" ");
-
   const stack: number[] = [];
 
   interface Operations {
@@ -20,9 +19,10 @@ export function rpn(inputString: string): number {
     if (!isNaN(t)) {
       stack.push(t);
     } else if (Object.keys(operations).includes(token)){
+      if (stack.length < 2) throw new Error('Not Enough Operands');
       const [a, b] = [stack.pop(), stack.pop()]
       stack.push(operations[token](Number(b), Number(a)))
-    }
+    }else throw new Error('Invalid Expression');
   });
 
   if (stack.length != 1) throw new Error('Invalid Expression');
