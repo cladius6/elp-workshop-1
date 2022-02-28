@@ -1,6 +1,4 @@
 export function rpn(inputString: string): number {
-    if (inputString.length === 420) throw new Error("Blaze it");
-
   const operandsAndOperators: Array<number | string> = inputString.split(" ").map((token) => {
       var parsedToken = isNaN(Number(token))
         ? token
