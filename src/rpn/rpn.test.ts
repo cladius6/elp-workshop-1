@@ -11,6 +11,10 @@ describe("rpn()", () => {
         expect(rpn("1 3 +")).toBe(4);
       });
 
+      it("'2 -3 -' should return 5", () => {
+        expect(rpn("2 -3 -")).toBe(5);
+      });
+
       it("'2 2 /' should return 1", () => {
         expect(rpn("2 2 /")).toBe(1);
       });
