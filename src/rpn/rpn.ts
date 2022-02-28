@@ -1,10 +1,5 @@
 export function rpn(inputString: string): number {
-  const tokens: Array<number | string> = inputString.split(" ").map((token) => {
-      var parsedToken = isNaN(Number(token))
-        ? token
-        : Number(token);
-      return parsedToken;
-    });
+  const tokens: string[] = inputString.split(" ");
 
   const stack: number[] = [];
 
