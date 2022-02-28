@@ -25,5 +25,6 @@ export function rpn(inputString: string): number {
     }
   });
 
+  if (stack.length != 1) throw new Error('Invalid Expression');
   return stack[0];
 }
