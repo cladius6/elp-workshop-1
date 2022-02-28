@@ -1,7 +1,7 @@
 /**
  * Evaluates reverse polish notation string input and return the result
  * 
- * @param {string }inputString 
+ * @param {string} inputString 
  * @returns {number}
  */
 export function rpn(inputString: string): number {
