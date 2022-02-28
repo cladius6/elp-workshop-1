@@ -1,5 +1,5 @@
 export function rpn(inputString: string): number {
-  const operandsAndOperators: Array<number | string> = inputString.split(" ").map((token) => {
+  const tokens: Array<number | string> = inputString.split(" ").map((token) => {
       var parsedToken = isNaN(Number(token))
         ? token
         : Number(token);
@@ -8,13 +8,13 @@ export function rpn(inputString: string): number {
 
   const stack: number[] = [];
 
-  operandsAndOperators.forEach((operandOrOperator) => {
+  tokens.forEach((token) => {
     let result: number;
 
-    if (typeof operandOrOperator === "string") {
+    if (typeof token === "string") {
       // @ts-ignore
       result = ((a: number, b: number) => a + b)(...stack.splice(-2));
-    } else result = operandOrOperator;
+    } else result = token;
     stack.push(result);
   });
 
