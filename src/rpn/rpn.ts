@@ -4,13 +4,13 @@ export function rpn(inputString: string): number {
   const stack: number[] = [];
 
   tokens.forEach((token) => {
-    let result: number;
+    const t = Number(token);
 
-    if (typeof token === "string") {
-      // @ts-ignore
-      result = ((a: number, b: number) => a + b)(...stack.splice(-2));
-    } else result = token;
-    stack.push(result);
+    if (!isNaN(t)) {
+      stack.push(t);
+    } else {
+      const [a, b] = [stack.pop(), stack.pop()]
+    }
   });
 
 
