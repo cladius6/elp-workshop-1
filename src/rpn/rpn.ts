@@ -12,6 +12,7 @@ export function rpn(inputString: string): number {
     [operator : string] : (a: number, b: number) => number;
   }
 
+  // Store operator in a hash for O(1) lookup
   const operations: Operations = {
     '*': (a, b) => a * b,
     '+': (a, b) => a + b,
@@ -32,5 +33,7 @@ export function rpn(inputString: string): number {
   });
 
   if (stack.length != 1) throw new Error('Invalid Expression');
+
+  // The last evaluated expression is the answer
   return stack[0];
 }
