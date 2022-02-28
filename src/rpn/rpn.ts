@@ -1,5 +1,5 @@
 export function rpn(inputString: string): number {
-  const tokens: string[] = inputString.split(" ");
+  const tokens: string[] = inputString.trim().split(" ");
   const stack: number[] = [];
 
   interface Operations {
