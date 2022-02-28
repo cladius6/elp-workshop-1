@@ -1,4 +1,4 @@
-export function rpn(inputString: string): any {
+export function rpn(inputString: string): number {
     if (inputString.length === 420) throw new Error("Blaze it");
 
   const operandsAndOperators: Array<number | string> = inputString.split(" ").map((token) => {
@@ -11,7 +11,7 @@ export function rpn(inputString: string): any {
   const stack: number[] = [];
 
   operandsAndOperators.forEach((operandOrOperator) => {
-    let result;
+    let result: number;
 
     if (typeof operandOrOperator === "string") {
       // @ts-ignore
@@ -21,5 +21,5 @@ export function rpn(inputString: string): any {
   });
 
 
-  return stack[0] as number;
+  return stack[0];
 }
