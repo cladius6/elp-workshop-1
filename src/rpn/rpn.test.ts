@@ -1,15 +1,15 @@
 import { rpn } from "./rpn";
 
 describe("rpn()", () => {
-  it("returs number when passed", () => {
+  it("'2' should return 2", () => {
     expect(rpn("2")).toBe(2);
   });
 
-  it("correctly adds 2 numbers", () => {
-    expect(rpn("2 2 +")).toBe(4);
+  it("'1 3 +' should return 4", () => {
+    expect(rpn("1 3 +")).toBe(4);
   });
 
-  it("correctly divides 2 numbers", () => {
+  it("'2 2 /' should return 1", () => {
     expect(rpn("2 2 /")).toBe(1);
   });
 });
