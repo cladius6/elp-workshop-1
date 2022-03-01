@@ -1,21 +1,55 @@
 import { rpn } from "./rpn";
 
 describe("rpn()", () => {
-    it("returs number when passed", () => {
-      expect(rpn("2")).toBe(2);
+  describe("Input parsing", () => {
+    describe("Basic Operations in simple order", () => {
+      it("'2' should return 2", () => {
+        expect(rpn("2")).toBe(2);
+      });
+
+      it("'1 3 +' should return 4", () => {
+        expect(rpn("1 3 +")).toBe(4);
+      });
+
+      it("'2 -3 -' should return 5", () => {
+        expect(rpn("2 -3 -")).toBe(5);
+      });
+
+      it("'2 2 /' should return 1", () => {
+        expect(rpn("2 2 /")).toBe(1);
+      });
+
+      it("'-2 2 *' should return -4", () => {
+        expect(rpn("-2 2 *")).toBe(-4);
+      });
     });
 
+    describe("Order of operations does matter", () => {
+      it("'2 2 + 3 *' should return 12", () => {
+        expect(rpn("2 2 + 3 *")).toBe(12);
+      });
 
-  it("correctly adds 2 numbers", function () {
-    expect(rpn("2 0 +")).toBe(2);
-  });
+      it("'3 1 - 2 2 + *' should return 8", () => {
+        expect(rpn("3 1 - 2 2 + *")).toBe(8);
+      });
+      
+      it("'4 3 4 + 5 1 + 2 * + +' should return 23", () => {
+        expect(rpn("4 3 4 + 5 1 + 2 * + +")).toBe(23);
+      });
+    });
 
+    describe("Error Handlig", () => {
+      it("'' should throw error 'Invalid Expression'", () => {
+        expect(() => rpn("")).toThrow("Invalid Expression");
+      });
 
-  it(`correctly adds 2 numbers`, async () => {
-    expect(rpn("2 2 +")).toBe(4);
-  });
+      it("'abc' should throw error 'Invalid Expression'", () => {
+        expect(() => rpn("abc")).toThrow("Invalid Expression");
+      });
 
-  it("correctly divides  2  numbers", () => {
-    expect(rpn("2 2 /")).toBe(1);
+      it("'1 +' should throw error 'Not Enough Operands'", () => {
+        expect(() => rpn("1 +")).toThrow("Not Enough Operands");
+      });
+    });
   });
 });

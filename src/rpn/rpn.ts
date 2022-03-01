@@ -1,34 +1,39 @@
-export function rpn(inputString: string): any {
-    if (inputString.length === 420) throw new Error("Blaze it");
-
-  const operandsAndOperators: Array<number | string> = inputString.split(" ").map((token) => {
-      var parsedToken = isNaN(Number(token))
-        ? token
-        : Number(token);
-      return parsedToken;
-    });
-
+/**
+ * Evaluates reverse polish notation string input and return the result
+ * 
+ * @param {string} inputString 
+ * @returns {number}
+ */
+export function rpn(inputString: string): number {
+  const tokens: string[] = inputString.trim().split(" ").filter((el) => el != '');
   const stack: number[] = [];
 
-  operandsAndOperators.forEach((operandOrOperator) => {
-    let result;
+  interface Operations {
+    [operator : string] : (a: number, b: number) => number;
+  }
 
-    if (typeof operandOrOperator === "string") {
-      // @ts-ignore
-      result = ((a: number, b: number) => a + b)(...stack.splice(-2));
-    } else result = operandOrOperator;
-    stack.push(result);
+  // Store operator in a hash for O(1) lookup
+  const operations: Operations = {
+    '*': (a, b) => a * b,
+    '+': (a, b) => a + b,
+    '-': (a, b) => a - b,
+    '/': (a, b) => a / b, 
+  }
+
+  tokens.forEach((token) => {
+    const t = Number(token);
+
+    if (!isNaN(t)) {
+      stack.push(t);
+    } else if (Object.keys(operations).includes(token)){
+      if (stack.length < 2) throw new Error('Not Enough Operands');
+      const [a, b] = [stack.pop(), stack.pop()]
+      stack.push(operations[token](Number(b), Number(a)))
+    }else throw new Error('Invalid Expression');
   });
 
+  if (stack.length != 1) throw new Error('Invalid Expression');
 
-  return stack[0] as number;
+  // The last evaluated expression is the answer
+  return stack[0];
 }
-
-// powtarzaj dla token := weź_następny_token()
-//     jeżeli token to liczba
-//       odłóż token na stos
-//     w przeciwnym wypadku jeżeli token to operator
-//       argumenty := weź_tyle_liczb_ze_stosu_ile_wymaga_operator
-//       wynik := argument1 operator argument2...
-//     odłóż_wynik_na_stos()
-//   zwróć_ostatnią_wartość_ze_stosu()
